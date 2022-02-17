@@ -5,10 +5,15 @@ import file from "./file.png";
 
 const UploadContainer = () => {
   const [classNames, setclassNames] = useState("drop-zone");
-  // const dropZone = document.querySelector(".drop-zone");
+  const fileInput = document.getElementsByTagName("input")[0];
+
+  const handleOnClick = () => {
+    // document.getElementsByTagName("input")[0].click();
+    fileInput.click();
+  };
+
   const handleOnDragOver = (e) => {
     e.preventDefault();
-    console.log(classNames);
     if (!classNames.includes("dragged")) {
       setclassNames("drop-zone dragged");
     }
@@ -16,13 +21,16 @@ const UploadContainer = () => {
 
   const handleDragLeave = () => {
     setclassNames("drop-zone");
-    console.log(classNames);
   };
 
   const handleOnDrop = (e) => {
     e.preventDefault();
     setclassNames("drop-zone");
-    console.log(classNames);
+    const files = e.dataTransfer.files;
+    console.log(files);
+    if (files.length) {
+      fileInput.files = files;
+    }
   };
 
   return (
@@ -35,13 +43,31 @@ const UploadContainer = () => {
           onDrop={handleOnDrop}
         >
           <div className="icon-container">
-            <img src={file} alt="file icon" className="center" />
-            <img src={file} alt="file icon" className="left" />
-            <img src={file} alt="file icon" className="right" />
+            <img
+              src={file}
+              alt="file icon"
+              className="center"
+              draggable="false"
+            />
+            <img
+              src={file}
+              alt="file icon"
+              className="left"
+              draggable="false"
+            />
+            <img
+              src={file}
+              alt="file icon"
+              className="right"
+              draggable="false"
+            />
           </div>
-          <input type="file" />
+          <input type="file" id="fileInput" />
           <div className="title" style={{ fontWeight: "645" }}>
-            Drop your Files here or, <span className="browsebtn">browse</span>
+            Drop your Files here or,{" "}
+            <span className="browsebtn" onClick={handleOnClick}>
+              browse
+            </span>
           </div>
         </div>
       </section>

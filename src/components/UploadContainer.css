@@ -79,3 +79,12 @@ html {
 .dragged .icon-container .center {
   transform: translateY(-5px);
 }
+
+#fileInput {
+  display: none;
+}
+
+.browsebtn {
+  color: rgb(84, 86, 202);
+  cursor: pointer;
+}
