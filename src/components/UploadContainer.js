@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./UploadContainer.css";
 import file from "./file.png";
+import axios from "axios";
 
 const UploadContainer = () => {
   const host = "https://innshare.herokuapp.com";
@@ -47,38 +48,26 @@ const UploadContainer = () => {
     if (files.length) {
       // console.log(fileInput);
       fileInput.files = files;
-      // console.log(fileInput.files);
+      console.log(fileInput.files);
       uploadFile();
     }
   };
 
   const uploadFile = () => {
-    // const file = fileInput.files[0];
-    // const formData = new FormData();
-    // formData.append("myfile", file);
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.onreadystatechange = () => {
-    //   console.log(xhr.readyState);
-    // };
-
-    // xhr.open("POST", uploadURL);
-    // xhr.send(formData);
     const fileInput = document.getElementsByTagName("input")[0];
     const file = fileInput.files[0];
     const formData = new FormData();
     formData.append("myfile", file);
-    fetch(uploadURL, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.file);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const updateProgress = (e) => {
+      console.log(e);
+    };
+    const config = {
+      onUploadProgress: updateProgress,
+    };
+
+    axios
+      .post(uploadURL, formData, config)
+      .then((response) => console.log(response.data.file));
   };
 
   return (
