@@ -6,6 +6,7 @@
 :root {
   --main-bg-color: #6b6b6b;
   --border-color: #97999b;
+  --container-width: 500px;
 }
 
 .body,
@@ -16,7 +17,8 @@ html {
 }
 
 .body,
-.drop-zone {
+.drop-zone,
+.upload-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +39,7 @@ html {
 }
 
 .drop-zone {
-  width: 500px;
+  width: var(--container-width);
   min-height: 200px;
   border: 2px dashed var(--border-color);
   margin: 30px;
@@ -87,4 +89,44 @@ html {
 .browsebtn {
   color: rgb(84, 86, 202);
   cursor: pointer;
+}
+
+.progress-container {
+  width: var(--container-width);
+  height: 70px;
+  border: 2px solid var(--main-bg-color);
+  margin-bottom: 25px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.progress-container .bg-progress {
+  /* background: var(--main-bg-color); */
+  background: #a5a3a38c;
+  width: 0%;
+  height: 100%;
+  /* transform: scaleX(0); */
+  transform-origin: left;
+  border-radius: 3%;
+  transition: width 0.25s linear;
+  position: absolute;
+}
+
+.progress-container .inner-container {
+  position: absolute;
+  z-index: 1;
+  margin: 10px 15px;
+  width: 100%;
+}
+
+.percent-container {
+  font-size: 13px;
+  margin: 5px;
+  opacity: 0.8;
+}
+
+.progress-bar {
+  height: 3px;
+  width: 100px;
+  background-color: #4a2c2c;
 }
