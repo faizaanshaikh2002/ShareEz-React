@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./UploadContainer.css";
 import file from "./file.png";
 import axios from "axios";
+import copyIcon from "./copy-icon.svg";
 
 const UploadContainer = () => {
   const host = "https://innshare.herokuapp.com";
@@ -84,6 +85,10 @@ const UploadContainer = () => {
   };
 
   const showLink = ({ file }) => {
+    const bgProgress = document.querySelector(".bg-progress");
+    const progressBar = document.querySelector(".progress-bar");
+    progressBar.style.transform = "scaleX(0)";
+    bgProgress.style.width = "0%";
     const progressContainer = document.querySelector(".progress-container");
     console.log(file);
     progressContainer.style.display = "none";
@@ -134,6 +139,20 @@ const UploadContainer = () => {
               <span id="percent">{percent}</span>%
             </div>
             <div className="progress-bar"></div>
+          </div>
+        </div>
+        <div className="sharing-container">
+          <p className="expire">Link Expires in 24 hours</p>
+          <div className="input-container">
+            <input
+              type="text"
+              id="fileURL"
+              readOnly
+              value={
+                "https://innshare.herokuapp.com/files/47b877e2-d11b-47ba-94c1-9a20e4401e89"
+              }
+            />
+            <img src={copyIcon} alt="copyIcon" />
           </div>
         </div>
       </section>
