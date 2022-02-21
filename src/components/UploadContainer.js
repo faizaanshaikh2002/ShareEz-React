@@ -55,27 +55,38 @@ const UploadContainer = () => {
   };
 
   const uploadFile = () => {
+    const progressContainer = document.querySelector(".progress-container");
+    progressContainer.style.display = "block";
     const fileInput = document.getElementsByTagName("input")[0];
     const file = fileInput.files[0];
     const formData = new FormData();
     formData.append("myfile", file);
 
-    const updateProgress = (e) => {
-      const bgProgress = document.querySelector(".bg-progress");
-      // console.log(e.loaded);
-      const percentCompleted = Math.floor((e.loaded * 100) / e.total);
-      console.log(percentCompleted);
-      bgProgress.style.width = `${percentCompleted}%`;
-      setpercent(percentCompleted);
-    };
-
     const config = {
       onUploadProgress: updateProgress,
     };
 
-    axios
-      .post(uploadURL, formData, config)
-      .then((response) => console.log(response.data.file));
+    axios.post(uploadURL, formData, config).then(({ data }) => {
+      // console.log(response);
+      showLink(data);
+    });
+  };
+
+  const updateProgress = (e) => {
+    const bgProgress = document.querySelector(".bg-progress");
+    const progressBar = document.querySelector(".progress-bar");
+
+    const percentCompleted = Math.floor((e.loaded * 100) / e.total);
+    // console.log(percentCompleted);
+    bgProgress.style.width = `${percentCompleted}%`;
+    progressBar.style.transform = `scaleX(${percentCompleted / 100})`;
+    setpercent(percentCompleted);
+  };
+
+  const showLink = ({ file }) => {
+    const progressContainer = document.querySelector(".progress-container");
+    console.log(file);
+    progressContainer.style.display = "none";
   };
 
   return (
