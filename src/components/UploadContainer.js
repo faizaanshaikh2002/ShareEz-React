@@ -85,13 +85,30 @@ const UploadContainer = () => {
   };
 
   const showLink = ({ file }) => {
+    const fileUrlInput = document.querySelector("#fileURL");
     const bgProgress = document.querySelector(".bg-progress");
     const progressBar = document.querySelector(".progress-bar");
+    const sharingContainer = document.querySelector(".sharing-container");
+    const progressContainer = document.querySelector(".progress-container");
+
+    // Resetting progress Bar
     progressBar.style.transform = "scaleX(0)";
     bgProgress.style.width = "0%";
-    const progressContainer = document.querySelector(".progress-container");
+    setpercent(0);
+
     console.log(file);
     progressContainer.style.display = "none";
+    sharingContainer.style.display = "block";
+    fileUrlInput.value = `${file}`;
+  };
+
+  const handleOnCopy = (e) => {
+    const fileUrlInput = document.querySelector("#fileURL");
+    fileUrlInput.select();
+    navigator.clipboard.writeText(fileUrlInput.value);
+    fileUrlInput.value = "";
+    // console.log(fileUrlInput);
+    // console.log("value is", fileUrlInput.value);
   };
 
   return (
@@ -144,15 +161,27 @@ const UploadContainer = () => {
         <div className="sharing-container">
           <p className="expire">Link Expires in 24 hours</p>
           <div className="input-container">
-            <input
-              type="text"
-              id="fileURL"
-              readOnly
-              value={
-                "https://innshare.herokuapp.com/files/47b877e2-d11b-47ba-94c1-9a20e4401e89"
-              }
+            <input type="text" id="fileURL" readOnly />
+            <img
+              src={copyIcon}
+              alt="copyIcon"
+              id="copyBtn"
+              onClick={handleOnCopy}
             />
-            <img src={copyIcon} alt="copyIcon" />
+          </div>
+          <p>Or Send Via Email</p>
+          <div className="email-container">
+            <form>
+              <div className="field">
+                <label htmlFor="sender">Your email</label>
+                <input type="email" required name="from-email" id="sender" />
+              </div>
+              <div className="field">
+                <label htmlFor="receiver">Receiver's email</label>
+                <input type="email" required name="to-email" id="receiver" />
+              </div>
+              <button type="submit">Send</button>
+            </form>
           </div>
         </div>
       </section>
