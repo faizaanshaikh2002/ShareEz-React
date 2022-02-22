@@ -6,7 +6,8 @@ import axios from "axios";
 import copyIcon from "./copy-icon.svg";
 
 const UploadContainer = () => {
-  const host = "https://innshare.herokuapp.com";
+  // const host = "https://innshare.herokuapp.com";
+  const host = "http://localhost:3002";
   const uploadURL = `${host}/api/files`;
   const [classNames, setclassNames] = useState("drop-zone");
   const [percent, setpercent] = useState(0);
@@ -57,6 +58,7 @@ const UploadContainer = () => {
 
   const uploadFile = () => {
     const progressContainer = document.querySelector(".progress-container");
+    console.log(progressContainer);
     progressContainer.style.display = "block";
     const fileInput = document.getElementsByTagName("input")[0];
     const file = fileInput.files[0];
@@ -78,7 +80,7 @@ const UploadContainer = () => {
     const progressBar = document.querySelector(".progress-bar");
 
     const percentCompleted = Math.floor((e.loaded * 100) / e.total);
-    // console.log(percentCompleted);
+    console.log(percentCompleted);
     bgProgress.style.width = `${percentCompleted}%`;
     progressBar.style.transform = `scaleX(${percentCompleted / 100})`;
     setpercent(percentCompleted);
