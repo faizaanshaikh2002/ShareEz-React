@@ -6,9 +6,10 @@ import axios from "axios";
 import copyIcon from "./copy-icon.svg";
 
 const UploadContainer = () => {
-  // const host = "https://innshare.herokuapp.com";
-  const host = "http://localhost:3002";
-  const uploadURL = `${host}/api/files`;
+  // const host = "https://innshare.herokuapp.com/";
+  const host = "http://localhost:3002/";
+  const uploadURL = `${host}api/files`;
+  const emailURL = `${host}api/files/send`;
   const [classNames, setclassNames] = useState("drop-zone");
   const [percent, setpercent] = useState(0);
   const fileInput = document.getElementsByTagName("input")[0];
@@ -36,7 +37,7 @@ const UploadContainer = () => {
     const files = e.target.files;
     console.table(files);
     if (files.length) {
-      console.log(fileInput);
+      // console.log(fileInput);
       fileInput.files = files;
       // console.log(fileInput.files);
       uploadFile();
@@ -56,9 +57,53 @@ const UploadContainer = () => {
     }
   };
 
+  const handleOnCopy = (e) => {
+    const fileUrlInput = document.querySelector("#fileURL");
+    fileUrlInput.select();
+    navigator.clipboard.writeText(fileUrlInput.value);
+    // fileUrlInput.value = "";
+    // console.log(fileUrlInput);
+    // console.log("value is", fileUrlInput.value);
+  };
+
+  const handleOnSubmit = (e) => {
+    const emailForm = document.querySelector("#emailForm");
+    e.preventDefault();
+    console.log("Submitted");
+    const fileUrlInput = document.querySelector("#fileURL");
+    const url = fileUrlInput.value;
+    const formData = {
+      uuid: url.split("/").splice(-1, 1)[0],
+      emailTo: emailForm.elements["to-email"].value,
+      emailFrom: emailForm.elements["from-email"].value,
+    };
+    console.table(formData);
+
+    // fetch(emailURL, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+
+    axios
+      .post(emailURL, formData)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const uploadFile = () => {
     const progressContainer = document.querySelector(".progress-container");
-    console.log(progressContainer);
+    // console.log(progressContainer);
     progressContainer.style.display = "block";
     const fileInput = document.getElementsByTagName("input")[0];
     const file = fileInput.files[0];
@@ -98,19 +143,9 @@ const UploadContainer = () => {
     bgProgress.style.width = "0%";
     setpercent(0);
 
-    console.log(file);
     progressContainer.style.display = "none";
     sharingContainer.style.display = "block";
     fileUrlInput.value = `${file}`;
-  };
-
-  const handleOnCopy = (e) => {
-    const fileUrlInput = document.querySelector("#fileURL");
-    fileUrlInput.select();
-    navigator.clipboard.writeText(fileUrlInput.value);
-    fileUrlInput.value = "";
-    // console.log(fileUrlInput);
-    // console.log("value is", fileUrlInput.value);
   };
 
   return (
@@ -173,7 +208,7 @@ const UploadContainer = () => {
           </div>
           <p>Or Send Via Email</p>
           <div className="email-container">
-            <form>
+            <form id="emailForm" onSubmit={handleOnSubmit}>
               <div className="field">
                 <label htmlFor="sender">Your email</label>
                 <input type="email" required name="from-email" id="sender" />
