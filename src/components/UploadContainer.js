@@ -67,6 +67,7 @@ const UploadContainer = () => {
   };
 
   const handleOnSubmit = (e) => {
+    const sharingContainer = document.querySelector(".sharing-container");
     const emailForm = document.querySelector("#emailForm");
     e.preventDefault();
     console.log("Submitted");
@@ -77,24 +78,17 @@ const UploadContainer = () => {
       emailTo: emailForm.elements["to-email"].value,
       emailFrom: emailForm.elements["from-email"].value,
     };
-    console.table(formData);
 
-    // fetch(emailURL, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formData),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
+    emailForm[2].setAttribute("disabled", "true");
+    console.table(formData);
 
     axios
       .post(emailURL, formData)
-      .then(function (response) {
-        console.log(response);
+      .then(function ({ data }) {
+        console.log(data);
+        if (data.success) {
+          sharingContainer.style.display = "none";
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -116,7 +110,7 @@ const UploadContainer = () => {
 
     axios.post(uploadURL, formData, config).then(({ data }) => {
       // console.log(response);
-      showLink(data);
+      onUploadSuccess(data);
     });
   };
 
@@ -131,7 +125,9 @@ const UploadContainer = () => {
     setpercent(percentCompleted);
   };
 
-  const showLink = ({ file }) => {
+  const onUploadSuccess = ({ file }) => {
+    const fileInput = document.getElementsByTagName("input")[0];
+    const emailForm = document.querySelector("#emailForm");
     const fileUrlInput = document.querySelector("#fileURL");
     const bgProgress = document.querySelector(".bg-progress");
     const progressBar = document.querySelector(".progress-bar");
@@ -143,6 +139,8 @@ const UploadContainer = () => {
     bgProgress.style.width = "0%";
     setpercent(0);
 
+    fileInput.value = "";
+    emailForm[2].removeAttribute("disabled");
     progressContainer.style.display = "none";
     sharingContainer.style.display = "block";
     fileUrlInput.value = `${file}`;
