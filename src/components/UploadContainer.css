@@ -15,6 +15,7 @@ html {
   font-weight: 500;
   background-color: var(--main-bg-color);
   height: 100vh;
+  overflow: hidden;
 }
 
 .body,
@@ -25,6 +26,10 @@ html {
   justify-content: center;
   flex-direction: column;
   transition: all 0.2s ease;
+}
+
+.body {
+  flex-direction: row;
 }
 
 .upload-container {
@@ -222,4 +227,39 @@ p {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.toast {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 60px);
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: #4ab464;
+  color: #fff;
+  font-size: 18px;
+  transition: transform ease-in-out 0.2s;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0px 4px 6px -2px rgba(0, 0, 0.05);
+}
+
+.upload-illustration {
+  background: url(./undraw_uploading_re_okvh.svg) no-repeat center;
+  background-size: contain;
+  height: 50vh;
+  width: 50vw;
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --container-width: 320px;
+  }
+  .upload-illustration {
+    display: none;
+  }
+  .email-container .field {
+    flex-direction: column;
+    width: 300px;
+  }
 }

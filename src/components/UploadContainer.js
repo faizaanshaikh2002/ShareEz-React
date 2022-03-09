@@ -13,6 +13,7 @@ const UploadContainer = () => {
   const [classNames, setclassNames] = useState("drop-zone");
   const [percent, setpercent] = useState(0);
   const fileInput = document.getElementsByTagName("input")[0];
+  const maxAllowedSize = 5000 * 1024 * 1024;
 
   const handleOnClick = () => {
     document.getElementsByTagName("input")[0].click();
@@ -61,6 +62,7 @@ const UploadContainer = () => {
     const fileUrlInput = document.querySelector("#fileURL");
     fileUrlInput.select();
     navigator.clipboard.writeText(fileUrlInput.value);
+    showToast("Link copied to clipboard");
     // fileUrlInput.value = "";
     // console.log(fileUrlInput);
     // console.log("value is", fileUrlInput.value);
@@ -88,6 +90,7 @@ const UploadContainer = () => {
         console.log(data);
         if (data.success) {
           sharingContainer.style.display = "none";
+          showToast("Email Sent");
         }
       })
       .catch(function (error) {
@@ -97,10 +100,24 @@ const UploadContainer = () => {
 
   const uploadFile = () => {
     const progressContainer = document.querySelector(".progress-container");
-    // console.log(progressContainer);
-    progressContainer.style.display = "block";
     const fileInput = document.getElementsByTagName("input")[0];
+    // console.log(progressContainer);
+    if (fileInput.files.length > 1) {
+      fileInput.value = "";
+      showToast("Only upload 1 File");
+      return;
+    }
+
     const file = fileInput.files[0];
+
+    if (file.size > maxAllowedSize) {
+      showToast("Can't upload more than 5GB");
+      fileInput.value = "";
+      return;
+    }
+
+    progressContainer.style.display = "block";
+
     const formData = new FormData();
     formData.append("myfile", file);
 
@@ -144,6 +161,17 @@ const UploadContainer = () => {
     progressContainer.style.display = "none";
     sharingContainer.style.display = "block";
     fileUrlInput.value = `${file}`;
+  };
+
+  let toastTimer;
+  const showToast = (msg) => {
+    const toast = document.querySelector(".toast");
+    toast.innerText = msg;
+    toast.style.transform = "translate(-50%,0)";
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.style.transform = "translate(-50%,60px)";
+    }, 2000);
   };
 
   return (
@@ -220,6 +248,8 @@ const UploadContainer = () => {
           </div>
         </div>
       </section>
+      <div className="toast">Hiii ther</div>
+      <div className="upload-illustration"></div>
     </div>
   );
 };
