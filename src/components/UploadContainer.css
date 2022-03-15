@@ -4,7 +4,7 @@
 }
 
 :root {
-  --main-bg-color: #6b6b6b;
+  --main-bg-color: rgb(37, 40, 44);
   --border-color: #97999b;
   --container-width: 500px;
 }
@@ -15,7 +15,7 @@ html {
   font-weight: 500;
   background-color: var(--main-bg-color);
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .body,

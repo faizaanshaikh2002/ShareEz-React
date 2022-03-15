@@ -4,6 +4,7 @@ import "./UploadContainer.css";
 import file from "./file.png";
 import axios from "axios";
 import copyIcon from "./copy-icon.svg";
+// import Navbar from "./Navbar";
 
 const UploadContainer = () => {
   // const host = "https://share-ez-backend.herokuapp.com/";
@@ -34,7 +35,8 @@ const UploadContainer = () => {
   const handleOnChange = (e) => {
     // uploadFile();
     e.preventDefault();
-    const fileInput = document.getElementsByTagName("input")[0];
+    const fileInput = document.querySelector("#fileInput");
+    console.log(fileInput);
     const files = e.target.files;
     console.table(files);
     if (files.length) {
@@ -102,7 +104,7 @@ const UploadContainer = () => {
 
   const uploadFile = () => {
     const progressContainer = document.querySelector(".progress-container");
-    const fileInput = document.getElementsByTagName("input")[0];
+    const fileInput = document.querySelector("#fileInput");
     // console.log(progressContainer);
     if (fileInput.files.length > 1) {
       fileInput.value = "";
@@ -145,7 +147,7 @@ const UploadContainer = () => {
   };
 
   const onUploadSuccess = ({ file }) => {
-    const fileInput = document.getElementsByTagName("input")[0];
+    const fileInput = document.querySelector("#fileInput");
     const emailForm = document.querySelector("#emailForm");
     const fileUrlInput = document.querySelector("#fileURL");
     const bgProgress = document.querySelector(".bg-progress");
@@ -178,82 +180,85 @@ const UploadContainer = () => {
   };
 
   return (
-    <div className="body">
-      <section className="upload-container">
-        <div
-          className={classNames}
-          onDragOver={handleOnDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleOnDrop}
-        >
-          <div className="icon-container">
-            <img
-              src={file}
-              alt="file icon"
-              className="center"
-              draggable="false"
-            />
-            <img
-              src={file}
-              alt="file icon"
-              className="left"
-              draggable="false"
-            />
-            <img
-              src={file}
-              alt="file icon"
-              className="right"
-              draggable="false"
-            />
-          </div>
-          <input type="file" id="fileInput" onChange={handleOnChange} />
-          <div className="title" style={{ fontWeight: "645" }}>
-            Drop your Files here or,{" "}
-            <label htmlFor="fileInput" className="browsebtn">
-              browse
-            </label>
-          </div>
-        </div>
-        <div className="progress-container">
-          <div className="bg-progress"></div>
-          <div className="inner-container">
-            <div className="title">Uploading...</div>
-            <div className="percent-container">
-              <span id="percent">{percent}</span>%
+    <>
+      {/* <Navbar /> */}
+      <div className="body">
+        <section className="upload-container">
+          <div
+            className={classNames}
+            onDragOver={handleOnDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleOnDrop}
+          >
+            <div className="icon-container">
+              <img
+                src={file}
+                alt="file icon"
+                className="center"
+                draggable="false"
+              />
+              <img
+                src={file}
+                alt="file icon"
+                className="left"
+                draggable="false"
+              />
+              <img
+                src={file}
+                alt="file icon"
+                className="right"
+                draggable="false"
+              />
             </div>
-            <div className="progress-bar"></div>
+            <input type="file" id="fileInput" onChange={handleOnChange} />
+            <div className="title" style={{ fontWeight: "645" }}>
+              Drop your Files here or,{" "}
+              <label htmlFor="fileInput" className="browsebtn">
+                browse
+              </label>
+            </div>
           </div>
-        </div>
-        <div className="sharing-container">
-          <p className="expire">Link Expires in 24 hours</p>
-          <div className="input-container">
-            <input type="text" id="fileURL" readOnly />
-            <img
-              src={copyIcon}
-              alt="copyIcon"
-              id="copyBtn"
-              onClick={handleOnCopy}
-            />
-          </div>
-          <p>Or Send Via Email</p>
-          <div className="email-container">
-            <form id="emailForm" onSubmit={handleOnSubmit}>
-              <div className="field">
-                <label htmlFor="sender">Your email</label>
-                <input type="email" required name="from-email" id="sender" />
+          <div className="progress-container">
+            <div className="bg-progress"></div>
+            <div className="inner-container">
+              <div className="title">Uploading...</div>
+              <div className="percent-container">
+                <span id="percent">{percent}</span>%
               </div>
-              <div className="field">
-                <label htmlFor="receiver">Receiver's email</label>
-                <input type="email" required name="to-email" id="receiver" />
-              </div>
-              <button type="submit">Send</button>
-            </form>
+              <div className="progress-bar"></div>
+            </div>
           </div>
-        </div>
-      </section>
-      <div className="toast">Hi there</div>
-      <div className="upload-illustration"></div>
-    </div>
+          <div className="sharing-container">
+            <p className="expire">Link Expires in 24 hours</p>
+            <div className="input-container">
+              <input type="text" id="fileURL" readOnly />
+              <img
+                src={copyIcon}
+                alt="copyIcon"
+                id="copyBtn"
+                onClick={handleOnCopy}
+              />
+            </div>
+            <p>Or Send Via Email</p>
+            <div className="email-container">
+              <form id="emailForm" onSubmit={handleOnSubmit}>
+                <div className="field">
+                  <label htmlFor="sender">Your email</label>
+                  <input type="email" required name="from-email" id="sender" />
+                </div>
+                <div className="field">
+                  <label htmlFor="receiver">Receiver's email</label>
+                  <input type="email" required name="to-email" id="receiver" />
+                </div>
+                <button type="submit">Send</button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <div className="toast">Hi there</div>
+        <div className="upload-illustration"></div>
+      </div>
+    </>
   );
 };
 
