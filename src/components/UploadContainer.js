@@ -6,7 +6,7 @@ import axios from "axios";
 import copyIcon from "./copy-icon.svg";
 
 const UploadContainer = () => {
-  // const host = "https://innshare.herokuapp.com/";
+  // const host = "https://share-ez-backend.herokuapp.com/";
   const host = "http://localhost:3002/";
   const uploadURL = `${host}api/files`;
   const emailURL = `${host}api/files/send`;
@@ -15,10 +15,10 @@ const UploadContainer = () => {
   const fileInput = document.getElementsByTagName("input")[0];
   const maxAllowedSize = 5000 * 1024 * 1024;
 
-  const handleOnClick = () => {
-    document.getElementsByTagName("input")[0].click();
-    // fileInput.click();
-  };
+  // const handleOnClick = () => {
+  //   document.getElementsByTagName("input")[0].click();
+  //   // fileInput.click();
+  // };
 
   const handleOnDragOver = (e) => {
     e.preventDefault();
@@ -82,6 +82,8 @@ const UploadContainer = () => {
     };
 
     emailForm[2].setAttribute("disabled", "true");
+    emailForm.elements["to-email"].value = "";
+    emailForm.elements["from-email"].value = "";
     console.table(formData);
 
     axios
@@ -167,6 +169,7 @@ const UploadContainer = () => {
   const showToast = (msg) => {
     const toast = document.querySelector(".toast");
     toast.innerText = msg;
+    toast.style.display = "block";
     toast.style.transform = "translate(-50%,0)";
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
@@ -206,9 +209,9 @@ const UploadContainer = () => {
           <input type="file" id="fileInput" onChange={handleOnChange} />
           <div className="title" style={{ fontWeight: "645" }}>
             Drop your Files here or,{" "}
-            <span className="browsebtn" onClick={handleOnClick}>
+            <label htmlFor="fileInput" className="browsebtn">
               browse
-            </span>
+            </label>
           </div>
         </div>
         <div className="progress-container">
@@ -248,7 +251,7 @@ const UploadContainer = () => {
           </div>
         </div>
       </section>
-      <div className="toast">Hiii ther</div>
+      <div className="toast">Hi there</div>
       <div className="upload-illustration"></div>
     </div>
   );
