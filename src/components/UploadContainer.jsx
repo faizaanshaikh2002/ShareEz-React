@@ -176,6 +176,7 @@ const UploadContainer = () => {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       toast.style.transform = "translate(-50%,60px)";
+      toast.style.display = "none";
     }, 2000);
   };
 
@@ -256,7 +257,21 @@ const UploadContainer = () => {
           </div>
         </section>
         <div className="toast">Hi there</div>
-        <div className="upload-illustration"></div>
+        {/* <div className="upload-illustration"></div> */}
+        <div className="container">
+          <lottie-player
+            src="https://assets7.lottiefiles.com/packages/lf20_4wledibb.json"
+            background="transparent"
+            speed="1"
+            style={{
+              width: "600px",
+              height: "400px",
+              filter: "hue-rotate(188deg)",
+            }}
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
       </div>
     </>
   );
