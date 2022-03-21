@@ -1,13 +1,8 @@
 import React from "react";
-import Body from "./Body";
 // import Navbar from "./Navbar";/
 
-const Home = ({ handlenavstate }) => {
-  return (
-    <>
-      <Body />
-    </>
-  );
+const Home = () => {
+  return <></>;
 };
 
 export default Home;
