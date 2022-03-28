@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const Body = () => {
   return (
     <div className="color">
+      {/* Heading Section */}
       <div className="container home-1">
         <div className="row">
           <div className="col-sm-6" id="intro_data">
@@ -55,6 +56,7 @@ const Body = () => {
           </div>
         </div>
       </div>
+      {/* Basic Paragraph */}
       <div className="container mt-5 mb-5">
         <h1 className="mt-5 text-center sudo-h1">Keep your task simple.</h1>
         <p className="text-center">
@@ -63,6 +65,7 @@ const Body = () => {
           we have simple UI and better user experience.
         </p>
       </div>
+      {/* Divs section */}
       <div className="container mt-5 pt-5">
         <div className="row mt-5">
           <div className="col-sm-6 mt-3">
@@ -93,13 +96,14 @@ const Body = () => {
                 width="480"
                 height="270"
                 frameBorder="0"
-                class="giphy-embed"
+                className="giphy-embed"
                 allowFullScreen
               ></iframe>
             </div>
           </div>
         </div>
       </div>
+      {/* 2nd div */}
       <div className="container mt-5 pt-5">
         <div className="row mt-5">
           <div className="col-sm-6 mt-3 pe-3">
@@ -117,13 +121,10 @@ const Body = () => {
                 width="480"
                 height="360"
                 frameBorder="0"
-                class="giphy-embed"
+                className="giphy-embed"
                 allowFullScreen
               ></iframe>
             </div>
-            <p>
-              {/* <a href="https://giphy.com/gifs/gentlemanscholar-gentlemanscholar-upwork-equifax-security-xT8pe2M9qM4bidp4GY"></a> */}
-            </p>
           </div>
           <div className="col-sm-6 mt-3">
             <h3>Secure your pdf through password.</h3>
@@ -134,11 +135,14 @@ const Body = () => {
             <br />
             <br />
             <p>
-              <a href="/encrypt">Encrypt your pdf →</a>
+              <Link to="/encrypt" style={{ color: "#00f382" }}>
+                Encrypt your pdf →
+              </Link>
             </p>
           </div>
         </div>
       </div>
+      {/* 3rd div */}
       <div className="container mt-5 pt-5">
         <div className="row mt-5">
           <div className="col-sm-6 mt-3">
@@ -168,13 +172,10 @@ const Body = () => {
                 width="480"
                 height="270"
                 frameBorder="0"
-                class="giphy-embed"
+                className="giphy-embed"
                 allowFullScreen
               ></iframe>
             </div>
-            <p>
-              {/* <a href="https://giphy.com/gifs/SandiaLabs-computer-cyber-lo5HLcAPFSgTZNTpAn"></a> */}
-            </p>
           </div>
         </div>
       </div>
