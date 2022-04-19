@@ -69,7 +69,9 @@ const Body = () => {
       <div className="container mt-5 pt-5">
         <div className="row mt-5">
           <div className="col-sm-6 mt-3">
-            <h3>Send your file directly through link.</h3>
+            <h3 className="text-start">
+              Send your file directly through link.
+            </h3>
             <p>
               Send file directly to many people through a single link by
               uploading here.

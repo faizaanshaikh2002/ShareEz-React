@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const Encryption = () => {
   // const host = "https://share-ez-backend.herokuapp.com/";
@@ -24,14 +24,27 @@ const Encryption = () => {
     const data = new FormData();
     data.append("file", FileState);
     data.append("password", passwordState);
-    axios
-      .post(fileUploadURL, data, {
+    fetch(
+      fileUploadURL,
+      { method: "POST", body: data },
+      {
         // receive two parameter endpoint url ,form data
-      })
+      }
+    )
       .then((res) => {
         // then print response status
-        console.log(res.statusText);
+        return res.blob();
         // console.log(passwordState);
+      })
+      .then((blob) => {
+        console.log(URL.createObjectURL(blob));
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = FileState.filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
       });
   };
 

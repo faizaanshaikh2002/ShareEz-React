@@ -7,8 +7,8 @@ import copyIcon from "./copy-icon.svg";
 // import Navbar from "./Navbar";
 
 const UploadContainer = () => {
-  // const host = "https://share-ez-backend.herokuapp.com/";
-  const host = "http://localhost:3002/";
+  const host = "https://share-ez-backend.herokuapp.com/";
+  // const host = "http://localhost:3002/";
   const uploadURL = `${host}api/files`;
   const emailURL = `${host}api/files/send`;
   const [classNames, setclassNames] = useState("drop-zone");
