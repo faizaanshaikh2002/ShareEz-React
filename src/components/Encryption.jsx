@@ -99,7 +99,7 @@ const Encryption = () => {
                         className="btn btn-success mt-2"
                         onClick={handleOnClick}
                       >
-                        Upload
+                        Download
                       </button>
                       <label htmlFor="pdf">
                         <i className="fa fa-paperclip fa-2x"></i>
@@ -125,13 +125,13 @@ const Encryption = () => {
                     <input type="password" name="confirm password" id="" />
                     <br />
                     <br />
-                    <button
+                    {/* <button
                       id="submit"
                       type="button"
                       className="btn btn-success"
                     >
                       Download
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </form>
